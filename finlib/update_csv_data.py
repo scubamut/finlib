@@ -21,6 +21,8 @@ import pandas.io.data as web
 
 def update_csv_data(symbols, data_path):
 
+    # set start way back if no saved data yet
+    start = dt.datetime(1990,1,1)
     end = dt.datetime.today().date()
 
     for ticker in symbols:
@@ -34,10 +36,7 @@ def update_csv_data(symbols, data_path):
             print 'No saved data..',
             data = pd.DataFrame(data=None, index=[start])
             
-        if data.empty == True :
-            # set start way back if no saved data yet
-            start = dt.datetime(1990,1,1)
-        else :
+        if data.empty == False :
             start = data.index.max().date()
 
         #check if there is data for the start-end data range
