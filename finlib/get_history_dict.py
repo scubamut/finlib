@@ -40,25 +40,25 @@ def get_history_dict(symbols, start, end, data_path):
             try:
                 new_data = web.get_data_yahoo(ticker, start, end)
             except:
-                print 'Download failed.. ',
+                print 'Download failed.. '
             if new_data.empty==False:
                 if data.empty==False:
                     try:
                         ticker_data = data.append(new_data)\
                         .groupby(level=0, by=['rownum']).last()
                     except:
-                        print 'Merge failed.. ',
+                        print 'Merge failed.. '
                 else:
                     ticker_data = new_data
                 try:
                     ticker_data.to_csv(data_path + ticker + '.csv')
-                    print ' UPDATED.. ',
+                    print ' UPDATED.. '
                 except:
-                    print 'Save failed.. ',
+                    print 'Save failed.. '
             else:
-                print 'No new data.. ',
+                print 'No new data.. '
         else:
-            print 'OK.. ',
+            print 'OK.. '
         pass
 
     pdata = dict((symbols[i], pd.read_csv(data_path + symbols[i] + '.csv',\
