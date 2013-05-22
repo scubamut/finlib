@@ -34,7 +34,7 @@ def get_history_dict(symbols, start, end, data_path):
 
         #check if there is data for the start-end data range
 
-        if data.index[-1].toordinal() <= end.toordinal() :
+        if data.index[-1].toordinal() < end.toordinal() - 3 :
 
             print 'Refresh data.. ',
             try:
