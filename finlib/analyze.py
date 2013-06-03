@@ -60,8 +60,8 @@ def analyze(values, data_path, index_ticker='SPY', p_print='No'):
         print 'Period Return: ', "{0:.3f}".format(metrics[3] * 100), '%'
         print 'Index Period Return: ', "{0:.3f}".format(metrics[7] * 100), '%'
         print
-        print 'Volatilty (annualized): ', "{0:.2f}".format(metrics[1] * 100), '%'
-        print 'Index Volatilty (annualized): ', "{0:.2f}".format(metrics[5] * 100), '%'
+        print 'Period Volatilty: ', "{0:.2f}".format(metrics[1]), '%'
+        print 'Period Index Volatility: ', "{0:.2f}".format(metrics[5]), '%'
         print
         print 'Average Daily Return :', "{0:.3f}".format(metrics[0] * 100), '%'
         print 'Index Average Daily Return :', "{0:.3f}".format(metrics[4] * 100), '%'
