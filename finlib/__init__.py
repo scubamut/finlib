@@ -5,4 +5,5 @@ from finlib.simulate import simulate
 from finlib.marketsim import marketsim
 from finlib.analyze import analyze
 from finlib.update_csv_data import update_csv_data
+from MarkowitzPortfolio import MarkowitzPortfolio
 import pandas as pd
