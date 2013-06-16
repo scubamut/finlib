@@ -6,4 +6,5 @@ from finlib.marketsim import marketsim
 from finlib.analyze import analyze
 from finlib.update_csv_data import update_csv_data
 from MarkowitzPortfolio import MarkowitzPortfolio
+from finlib.get_trading_dates import get_trading_dates
 import pandas as pd
