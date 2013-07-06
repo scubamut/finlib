@@ -1,13 +1,12 @@
 #-------------------------------------------------------------------------------
-# Name:         get_history_dict
+# Name:         get_history
 # Purpose:      get history data from source (Yahoo or QSTK).
 #               If csv exists, refresh and save, if necessary
 #               If no csv, get from web and save to csv
-#               Return dictionary of pandas dataframes, ascending dates
-#               {<ticker>: DF, .......}. If download fails, symbol is removed
+#               Return pandas datapanel, ascending dates
 #
-# Calling:      get_history_dict(symbols, start, end, data_path)
-#               NOTE: date format datetime.datetime, must be trading days
+# Calling:      get_history(symbols, start, end, data_path)
+#               NOTE: date format datetime.datetime, must be trading dates
 #               symbols = symbol list
 #
 # Author:       Dave Gilbert
@@ -20,15 +19,14 @@ import datetime as dt
 import pandas as pd
 import pandas.io.data as web
 
-def get_history_dict(symbols, start, end, data_path):
+def get_history(symbols, start, end, data_path):
 
     symbols_ls = list(symbols)
     for ticker in symbols:
         print ticker,
         try:
             #see if csv data available
-            data = pd.read_csv(data_path + ticker + '.csv',\
-                                index_col='Date', parse_dates=True)
+            data = pd.read_csv(data_path + ticker + '.csv', index_col='Date', parse_dates=True)
         except:
             #if no csv data, create an empty dataframe
             data = pd.DataFrame(data=None, index=[start])
@@ -40,11 +38,11 @@ def get_history_dict(symbols, start, end, data_path):
             print 'Refresh data.. ',
             try:
                 new_data = web.get_data_yahoo(ticker, start, end)
+
                 if new_data.empty==False:
                     if data.empty==False:
                         try:
-                            ticker_data = data.append(new_data)\
-                            .groupby(level=0, by=['rownum']).last()
+                            ticker_data = data.append(new_data).groupby(level=0, by=['rownum']).last()
                         except:
                             print 'Merge failed.. '
                     else:
@@ -64,24 +62,24 @@ def get_history_dict(symbols, start, end, data_path):
             print 'OK.. '
         pass
 
-    pdata = dict((symbols_ls[i], pd.read_csv(data_path + symbols_ls[i] + '.csv',\
-                     index_col='Date', parse_dates=True).sort(ascending=True)\
-                  .ix[start:end]) for i in range(len(symbols_ls)))
+    pdata = pd.Panel(dict((symbols_ls[i], pd.read_csv(data_path + symbols_ls[i] + '.csv',\
+                     index_col='Date', parse_dates=True).sort(ascending=True)) for i in range(len(symbols_ls))) )
 
 
-    return pdata
+    return pdata.ix[:, start:end, :]
 
 if __name__ == '__main__':
 
-    data_path = 'G:\\Python Projects\\Computational Investing\\Data\\'
+    data_path = 'G:\\Python Projects\\PyScripter Projects\\Computational Investing\\Data\\'
 
-    start_date = '3/1/2011'
-    end_date = '30/12/2011'
+    # these must be trading dates
+    start_date = '1/1/2007'
+    end_date = '31/12/2009'
 
     start = dt.datetime.strptime(start_date, '%d/%m/%Y').date()
     end = dt.datetime.strptime(end_date, '%d/%m/%Y').date()
 
-    market_index = get_history_dict(['SPY', 'EEM'], start, end, data_path)
-
+#    market_index = get_history(['SPY', 'EEM'], start, end, data_path).ix[:,:,'Adj Close']
+    data = get_history(['SPY', 'AXSL', 'VWO'], start,  end, 'E:\\Temp\\')
     print
-    print  market_index.items()
+#    print market_index.info
