@@ -4,7 +4,7 @@
 #               If csv exists, refresh and save, if necessary
 #               If no csv, get from web and save to csv
 #               Return dictionary of pandas dataframes, ascending dates
-#               {<ticker>: DF, .......}
+#               {<ticker>: DF, .......}. If download fails, symbol is removed
 #
 # Calling:      get_history_dict(symbols, start, end, data_path)
 #               NOTE: date format datetime.datetime, must be trading days
