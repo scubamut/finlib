@@ -6,6 +6,7 @@ finlib\__init__.py
 finlib\analyze.py
 finlib\get_history.py
 finlib\get_history_dict.py
+finlib\get_trading_dates.py
 finlib\marketsim.py
 finlib\simulate.py
 finlib\update_csv_data.py
