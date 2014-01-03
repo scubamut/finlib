@@ -14,6 +14,7 @@ def marketsim(starting_cash, orders, data_path):
 
     import datetime as dt
     import pandas as pd
+    import pandas.io.data as web
     from finlib.get_history import get_history
 
     symbols = list(set(orders.symbol))
@@ -54,7 +55,7 @@ if __name__ == '__main__':
     import pandas as pd
     import datetime as dt
 
-    data_path = 'G:\\Python Projects\\Computational Investing\\Data\\'
+    data_path = 'D:\\Google Drive\\Python Projects\\PyScripter Projects\\Computational Investing\Data\\'
 
     orders = pd.read_csv(data_path + 'orders.csv',header=None)
     orders.columns = ['year', 'month', 'day', 'symbol', 'action', 'qty', 'cash']

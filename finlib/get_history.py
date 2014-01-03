@@ -17,7 +17,7 @@
 #-------------------------------------------------------------------------------
 import datetime as dt
 import pandas as pd
-import pandas.io.data as web
+from finlib.get_yahoo_data import get_yahoo_data
 
 def get_history(symbols, start, end, data_path):
 
@@ -37,7 +37,7 @@ def get_history(symbols, start, end, data_path):
 
             print 'Refresh data.. ',
             try:
-                new_data = web.get_data_yahoo(ticker, start, end)
+                new_data = get_yahoo_data(ticker, start, end)
 
                 if new_data.empty==False:
                     if data.empty==False:
@@ -80,6 +80,6 @@ if __name__ == '__main__':
     end = dt.datetime.strptime(end_date, '%d/%m/%Y').date()
 
 #    market_index = get_history(['SPY', 'EEM'], start, end, data_path).ix[:,:,'Adj Close']
-    data = get_history(['SPY', 'AXSL', 'VWO'], start,  end, 'E:\\Temp\\')
+    data = get_history(['SPY', 'EEM', 'VWO'], start,  end, 'D:\\Temp\\')
     print
 #    print market_index.info

@@ -17,12 +17,12 @@
 #-------------------------------------------------------------------------------
 import datetime as dt
 import pandas as pd
-from finlib.get_yahoo_data import get_yahoo_data
+import pandas.io.data as web
 
 def update_csv_data(symbols, data_path):
 
     # set start way back if no saved data yet
-    start = dt.datetime(1990,1,1).date()
+    start = dt.datetime(1990,1,1)
     end = dt.datetime.today().date()
 
     for ticker in symbols:
@@ -40,13 +40,12 @@ def update_csv_data(symbols, data_path):
             start = data.index.max().date()
 
         #check if there is data for the start-end data range
-        print data.index[-1].toordinal(), end.toordinal() - 3 ,
 
         if data.index[-1].toordinal() < end.toordinal() - 3 :
 
             print 'Get Yahoo data.. ',
             try:
-                new_data = get_yahoo_data(ticker, start, end)
+                new_data = web.get_data_yahoo(ticker, start, end)
             except:
                 print 'Download failed.. '
             if new_data.empty==False:
@@ -74,13 +73,11 @@ def update_csv_data(symbols, data_path):
 
 def main():
 
-#    data_path = 'G:\\Python Projects\\PyScripter Projects\\Computational Investing\Data\\'
-	data_path = 'D:\\Google Drive\\Python Projects\\PyScripter Projects\\Computational Investing\\Data\\'
+    data_path = 'D:\\Google Drive\\Python Projects\\PyScripter Projects\\Computational Investing\Data\\'
 
-#    symbols = ['IHE', 'DIA', 'VWO', 'GLD']
-	symbols = ['SPY']
+    symbols = ['IHE', 'DIA', 'VWO', 'GLD']
 
-	update_csv_data(symbols, data_path)
+    update_csv_data(symbols, data_path)
 
 if __name__ == '__main__':
     main()
