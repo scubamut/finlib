@@ -33,7 +33,8 @@ def get_history(symbols, start, end, data_path):
 
         #check if there is data for the start-end data range
 
-        if data.index[-1].toordinal() < end.toordinal() - 3 :
+        if start.toordinal() < data.index[0].toordinal() \
+                             or end.toordinal() > data.index[-1].toordinal():
 
             print 'Refresh data.. ',
             try:
@@ -70,16 +71,16 @@ def get_history(symbols, start, end, data_path):
 
 if __name__ == '__main__':
 
-    data_path = 'G:\\Python Projects\\PyScripter Projects\\Computational Investing\\Data\\'
+    data_path = 'G:\\Google Drive\\Python Projects\\PyScripter Projects\\Computational Investing\\Data\\'
 
     # these must be trading dates
-    start_date = '1/1/2007'
-    end_date = '31/12/2009'
+    start_date = '1/1/1992'
+    end_date = '4/9/2012'
 
     start = dt.datetime.strptime(start_date, '%d/%m/%Y').date()
     end = dt.datetime.strptime(end_date, '%d/%m/%Y').date()
 
 #    market_index = get_history(['SPY', 'EEM'], start, end, data_path).ix[:,:,'Adj Close']
-    data = get_history(['SPY', 'AXSL', 'VWO'], start,  end, 'E:\\Temp\\')
+    data = get_history(['VFINX', 'VEURX', 'VPACX', 'VGSIX', 'VBMFX', 'FSHBX', 'VGPMX'], start,  end, data_path)
     print
 #    print market_index.info
